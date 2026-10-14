@@ -1,5 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
+import { T } from "@/components/language";
+import { TournamentView } from "@/components/tournament-view";
 
 type TournamentPageProps = {
   params: Promise<{ id: string }>;
@@ -11,29 +13,26 @@ async function TournamentDetail({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-
-  return (
-    <p className="mt-3 text-muted">
-      Turneringsvisning for <span className="font-medium text-ink">{id}</span>{" "}
-      kommer snart.
-    </p>
-  );
+  return <TournamentView id={id} />;
 }
 
 export default function TournamentPage({ params }: TournamentPageProps) {
   return (
     <div className="page-shell relative">
-      <main className="relative z-10 mx-auto w-full max-w-2xl px-6 py-12 sm:px-10">
+      <main className="relative z-10 mx-auto w-full max-w-4xl px-6 py-12 sm:px-10">
         <Link
           href="/"
-          className="text-sm font-medium text-accent underline-offset-4 hover:underline"
+          className="text-sm font-medium text-accent underline-offset-4 hover:underline print:hidden"
         >
-          ← Forside
+          ← <T no="Forside" en="Home" />
         </Link>
-        <h1 className="mt-8 font-display text-3xl font-semibold text-ink">
-          Turnering
-        </h1>
-        <Suspense fallback={<p className="mt-3 text-muted">Laster…</p>}>
+        <Suspense
+          fallback={
+            <p className="mt-3 text-muted">
+              <T no="Laster…" en="Loading…" />
+            </p>
+          }
+        >
           <TournamentDetail params={params} />
         </Suspense>
       </main>

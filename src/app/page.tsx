@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { T } from "@/components/language";
 import { CATEGORIES } from "@/lib/categories";
+import { CATEGORY_EN } from "@/lib/translations";
 
 export default function Home() {
   return (
@@ -16,14 +18,17 @@ export default function Home() {
           className="animate-rise mt-6 font-display text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl"
           style={{ animationDelay: "120ms" }}
         >
-          Velg kveldens oppgjør
+          <T no="Velg kveldens oppgjør" en="Pick tonight’s showdown" />
         </h1>
 
         <p
           className="animate-rise mt-4 max-w-lg text-base leading-relaxed text-muted sm:text-lg"
           style={{ animationDelay: "200ms" }}
         >
-          Velg kategori, sport og bracket — med sveitsisk og flere oppsett.
+          <T
+            no="Velg kategori, sport og bracket — med sveitsisk og flere oppsett."
+            en="Pick a category, sport and bracket — with Swiss and more formats."
+          />
         </p>
 
         <nav
@@ -38,10 +43,13 @@ export default function Home() {
               style={{ animationDelay: `${280 + index * 60}ms` }}
             >
               <span className="font-display text-xl font-semibold text-ink transition-transform duration-200 group-hover:translate-x-1 sm:text-2xl">
-                {category.label}
+                <T no={category.label} en={CATEGORY_EN[category.id].label} />
               </span>
               <span className="text-sm text-muted sm:text-right">
-                {category.subtitle}
+                <T
+                  no={category.subtitle}
+                  en={CATEGORY_EN[category.id].subtitle}
+                />
               </span>
             </Link>
           ))}

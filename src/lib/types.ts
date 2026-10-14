@@ -9,6 +9,8 @@ export type TournamentStatus = "draft" | "active" | "completed";
 export type Player = {
   id: string;
   name: string;
+  /** Rating brukt til seeding; null betyr ikke seedet. */
+  rating?: number | null;
 };
 
 export type Match = {
@@ -19,6 +21,10 @@ export type Match = {
   winnerId: string | null;
   scoreA: number | null;
   scoreB: number | null;
+  /** Hvilken del av turneringen kampen hører til (gruppespill eller sluttspill). */
+  stage?: "group" | "knockout";
+  /** Kampens plass i runden; brukes til å flytte vinnere videre i sluttspillet. */
+  slot?: number;
 };
 
 export type Tournament = {

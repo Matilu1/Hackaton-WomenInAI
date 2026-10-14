@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { useDramaticMode } from "@/components/dramatic-mode";
+import { useLanguage } from "@/components/language";
 
 export default function AdminPage() {
   const { dramatic, setDramatic } = useDramaticMode();
+  const { t } = useLanguage();
 
   return (
     <div className="page-shell relative">
@@ -13,7 +15,7 @@ export default function AdminPage() {
           href="/"
           className="text-sm font-medium text-accent underline-offset-4 hover:underline"
         >
-          ← Forside
+          ← {t("Forside", "Home")}
         </Link>
 
         <p className="mt-8 font-display text-2xl font-bold text-ink">
@@ -23,7 +25,10 @@ export default function AdminPage() {
           Admin
         </h1>
         <p className="mt-3 text-muted">
-          Innstillinger som påvirker hele opplevelsen.
+          {t(
+            "Innstillinger som påvirker hele opplevelsen.",
+            "Settings that affect the whole experience.",
+          )}
         </p>
 
         <section className="mt-10 border-t border-line pt-8">
@@ -33,7 +38,10 @@ export default function AdminPage() {
                 Dramatic mode
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-muted">
-                Når dette er på, vises all tekst i CAPSLOCK over hele appen.
+                {t(
+                  "Når dette er på, vises all tekst i CAPSLOCK over hele appen.",
+                  "When this is on, all text across the app is shown in CAPS LOCK.",
+                )}
               </p>
             </div>
             <button
@@ -47,7 +55,7 @@ export default function AdminPage() {
                   : "border-line bg-transparent text-ink"
               }`}
             >
-              {dramatic ? "På" : "Av"}
+              {dramatic ? t("På", "On") : t("Av", "Off")}
             </button>
           </div>
         </section>

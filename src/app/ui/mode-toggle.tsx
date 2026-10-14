@@ -2,6 +2,7 @@
 
 import { useEffect, useSyncExternalStore } from "react";
 import { useDramaticMode } from "@/components/dramatic-mode";
+import { useLanguage } from "@/components/language";
 
 const STORAGE_KEY = "nome-dark";
 const DARK_EVENT = "nome-dark-change";
@@ -72,6 +73,22 @@ export function DramaticToggle() {
       className={BUTTON_CLASS}
     >
       {dramatic ? "😌 Calm mode" : "🎭 Dramatic mode"}
+    </button>
+  );
+}
+
+/** Bytter all tekst i appen mellom norsk og engelsk. */
+export function LanguageToggle() {
+  const { lang, setLanguage } = useLanguage();
+
+  return (
+    <button
+      type="button"
+      onClick={() => setLanguage(lang === "en" ? "no" : "en")}
+      aria-pressed={lang === "en"}
+      className={BUTTON_CLASS}
+    >
+      {lang === "en" ? "🇳🇴 Norsk" : "🇬🇧 English mode"}
     </button>
   );
 }
