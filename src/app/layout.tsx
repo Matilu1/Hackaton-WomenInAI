@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Figtree } from "next/font/google";
+import { Manrope, Syne } from "next/font/google";
+import { DramaticModeProvider } from "@/components/dramatic-mode";
 import "./globals.css";
 
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
+const syne = Syne({
+  variable: "--font-syne",
   subsets: ["latin"],
 });
 
-const figtree = Figtree({
-  variable: "--font-figtree",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
 });
 
@@ -22,9 +23,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="nb"
-      className={`${bricolage.variable} ${figtree.variable} h-full antialiased`}
+      className={`${syne.variable} ${manrope.variable} h-full antialiased`}
+      data-dramatic="off"
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <DramaticModeProvider>{children}</DramaticModeProvider>
+      </body>
     </html>
   );
 }

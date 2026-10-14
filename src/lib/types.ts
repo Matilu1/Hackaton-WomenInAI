@@ -1,10 +1,8 @@
-import type { EventModeId } from "./modes";
+import type { CategoryId } from "./categories";
+import type { TournamentFormatId } from "./formats";
+import type { SportId } from "./sports";
 
-/** Supported tournament bracket / pairing formats. */
-export type TournamentFormat =
-  | "single-elimination"
-  | "round-robin"
-  | "swiss";
+export type TournamentFormat = TournamentFormatId;
 
 export type TournamentStatus = "draft" | "active" | "completed";
 
@@ -26,7 +24,8 @@ export type Match = {
 export type Tournament = {
   id: string;
   name: string;
-  mode: EventModeId;
+  categoryId: CategoryId;
+  sportId: SportId;
   format: TournamentFormat;
   status: TournamentStatus;
   players: Player[];
