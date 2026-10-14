@@ -11,14 +11,19 @@ export type Player = {
   name: string;
 };
 
+export type MatchSlot = "A" | "B";
+
 export type Match = {
   id: string;
   round: number;
+  index: number;
   playerAId: string | null;
   playerBId: string | null;
   winnerId: string | null;
   scoreA: number | null;
   scoreB: number | null;
+  nextMatchId: string | null;
+  nextSlot: MatchSlot | null;
 };
 
 export type Tournament = {
