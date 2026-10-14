@@ -2,15 +2,15 @@
 @plugin "daisyui";
 
 :root {
-  --ink: var(--rose);
-  --ink-soft: var(--rose-soft);
-  --mist: #fbe9f0;
-  --spruce: #9d1f52;
-  --spruce-deep: #6e1239;
-  --apricot: #e07a3a;
-  --rose: #9d1f52;
-  --rose-soft: #a3365f;
-  --background: #f8dfe9;
+  --ink: #9d1f52;
+  --muted: #a3365f;
+  --stone: #fbe9f0;
+  --stone-deep: #f6d5e2;
+  --accent: #b8326a;
+  --accent-soft: #d9799f;
+  --line: rgba(157, 31, 82, 0.18);
+  --scrim: rgba(251, 233, 240, 0.8);
+  --background: var(--stone);
   --foreground: var(--ink);
 }
 
@@ -18,127 +18,57 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-ink: var(--ink);
-  --color-ink-soft: var(--ink-soft);
-  --color-mist: var(--mist);
-  --color-spruce: var(--spruce);
-  --color-spruce-deep: var(--spruce-deep);
-  --color-apricot: var(--apricot);
-  --color-rose: var(--rose);
-  --color-rose-soft: var(--rose-soft);
-  --font-sans: var(--font-figtree);
-  --font-display: var(--font-bricolage);
+  --color-muted: var(--muted);
+  --color-stone: var(--stone);
+  --color-stone-deep: var(--stone-deep);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-line: var(--line);
+  /* Eldre klassenavn som fortsatt brukes på noen sider. */
+  --color-ink-soft: var(--muted);
+  --color-spruce: var(--ink);
+  --color-apricot: var(--accent);
+  --font-sans: var(--font-manrope);
+  --font-display: var(--font-syne);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-figtree), ui-sans-serif, sans-serif;
+  font-family: var(--font-manrope), ui-sans-serif, sans-serif;
 }
 
 .font-display {
-  font-family: var(--font-bricolage), ui-sans-serif, sans-serif;
+  font-family: var(--font-syne), ui-sans-serif, sans-serif;
 }
 
-@keyframes rise-in {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+html.dramatic-mode,
+html.dramatic-mode body,
+html.dramatic-mode body *,
+html[data-dramatic="on"],
+html[data-dramatic="on"] body,
+html[data-dramatic="on"] body * {
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em;
 }
 
-@keyframes drift {
-  from {
-    transform: scale(1.02) translate3d(0, 0, 0);
-  }
-  to {
-    transform: scale(1.08) translate3d(-1.5%, 1%, 0);
-  }
-}
-
-@keyframes mode-in {
-  from {
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.animate-rise {
-  animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.animate-drift {
-  animation: drift 22s ease-in-out infinite alternate;
-}
-
-.animate-mode {
-  animation: mode-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.hero-scrim {
-  background: linear-gradient(
-    105deg,
-    rgba(251, 233, 240, 0.94) 0%,
-    rgba(251, 233, 240, 0.88) 38%,
-    rgba(251, 233, 240, 0.35) 62%,
-    rgba(251, 233, 240, 0) 82%
-  );
-}
-
-@media (max-width: 767px) {
-  .hero-scrim {
-    background: linear-gradient(
-      180deg,
-      rgba(251, 233, 240, 0.95) 0%,
-      rgba(251, 233, 240, 0.9) 55%,
-      rgba(251, 233, 240, 0.55) 100%
-    );
-  }
-}
-
-.page-scrim {
-  background: rgba(251, 233, 240, 0.88);
+.page-shell {
+  min-height: 100svh;
+  background:
+    linear-gradient(var(--scrim), var(--scrim)),
+    url("/ny-bakgrunn.jpg") center / cover no-repeat;
 }
 
 /* Mørk modus: settes av knappen øverst til høyre (data-dark på <html>). */
 :root[data-dark="on"] {
-  --mist: #2a0f1d;
-  --spruce: #f7a8c6;
-  --background: #2a0f1d;
-  --rose: #f7a8c6;
-  --rose-soft: #f3c6d7;
-}
-
-:root[data-dark="on"] .hero-scrim {
-  background: linear-gradient(
-    105deg,
-    rgba(38, 10, 24, 0.92) 0%,
-    rgba(38, 10, 24, 0.85) 38%,
-    rgba(38, 10, 24, 0.4) 62%,
-    rgba(38, 10, 24, 0.1) 82%
-  );
-}
-
-@media (max-width: 767px) {
-  :root[data-dark="on"] .hero-scrim {
-    background: linear-gradient(
-      180deg,
-      rgba(38, 10, 24, 0.93) 0%,
-      rgba(38, 10, 24, 0.88) 55%,
-      rgba(38, 10, 24, 0.6) 100%
-    );
-  }
-}
-
-:root[data-dark="on"] .page-scrim {
-  background: rgba(42, 15, 29, 0.9);
+  --ink: #f7a8c6;
+  --muted: #f3c6d7;
+  --stone: #2a0f1d;
+  --stone-deep: #3a1628;
+  --accent: #ff8fbf;
+  --accent-soft: #c76b93;
+  --line: rgba(247, 168, 198, 0.22);
+  --scrim: rgba(42, 15, 29, 0.88);
 }
 
 :root[data-dark="on"] input[type="text"] {
@@ -146,17 +76,58 @@ body {
 }
 
 :root[data-dark="on"] .mode-toggle-surface {
-  background: rgba(38, 10, 24, 0.5);
+  background: rgba(42, 15, 29, 0.5);
 }
 
-/* Dramatic mode: alle bokstaver i caps lock. */
-:root[data-dramatic="on"] body {
-  text-transform: uppercase;
+.page-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.45;
+  background-image: linear-gradient(
+    to right,
+    transparent 0,
+    transparent calc(50% - 0.5px),
+    rgba(157, 31, 82, 0.05) calc(50% - 0.5px),
+    rgba(157, 31, 82, 0.05) calc(50% + 0.5px),
+    transparent calc(50% + 0.5px),
+    transparent 100%
+  );
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mode-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-rise {
+  animation: rise-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-mode {
+  animation: mode-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-rise,
-  .animate-drift,
   .animate-mode {
     animation: none;
   }

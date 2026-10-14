@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import PageBackdrop from "@/app/ui/page-backdrop";
 
 type TournamentPageProps = {
   params: Promise<{ id: string }>;
@@ -14,7 +13,7 @@ async function TournamentDetail({
   const { id } = await params;
 
   return (
-    <p className="mt-3 text-ink-soft">
+    <p className="mt-3 text-muted">
       Turneringsvisning for <span className="font-medium text-ink">{id}</span>{" "}
       kommer snart.
     </p>
@@ -23,19 +22,18 @@ async function TournamentDetail({
 
 export default function TournamentPage({ params }: TournamentPageProps) {
   return (
-    <div className="relative min-h-svh">
-      <PageBackdrop />
+    <div className="page-shell relative">
       <main className="relative z-10 mx-auto w-full max-w-2xl px-6 py-12 sm:px-10">
         <Link
           href="/"
-          className="text-sm font-medium text-spruce underline-offset-4 hover:underline"
+          className="text-sm font-medium text-accent underline-offset-4 hover:underline"
         >
           ← Forside
         </Link>
         <h1 className="mt-8 font-display text-3xl font-semibold text-ink">
           Turnering
         </h1>
-        <Suspense fallback={<p className="mt-3 text-ink-soft">Laster…</p>}>
+        <Suspense fallback={<p className="mt-3 text-muted">Laster…</p>}>
           <TournamentDetail params={params} />
         </Suspense>
       </main>

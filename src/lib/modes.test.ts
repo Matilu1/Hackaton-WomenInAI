@@ -1,36 +1,71 @@
 import { describe, expect, it } from "vitest";
-import {
-  EVENT_MODES,
-  getEventMode,
-  getModeActivities,
-  getModeActivity,
-  isEventModeId,
-} from "./modes";
+import { CATEGORIES, getCategory, isCategoryId } from "./categories";
+import { SPORTS } from "./sports";
+import { suggestFormats } from "./suggestions";
 
-describe("EVENT_MODES", () => {
-  it("includes the front-page modes", () => {
-    expect(EVENT_MODES.map((mode) => mode.label)).toEqual([
+describe("CATEGORIES", () => {
+  it("includes the front-page cases", () => {
+    expect(CATEGORIES.map((category) => category.label)).toEqual([
+      "Internoppgjør",
       "Familieoppgjør",
-      "Girls night",
-      "Jobboppgjør",
-      "Lønningspils",
+      "Jentetur / Guttatur",
+      "Hytteoppgjør",
+      "Vennegjengen",
+      "Klubb / skikkelig turnering",
       "WWAUQMD",
     ]);
   });
 
-  it("validates mode ids", () => {
-    expect(isEventModeId("girls-night")).toBe(true);
-    expect(isEventModeId("unknown")).toBe(false);
-    expect(getEventMode("lonningspils")?.label).toBe("Lønningspils");
+  it("validates category ids", () => {
+    expect(isCategoryId("klubb")).toBe(true);
+    expect(isCategoryId("unknown")).toBe(false);
+    expect(getCategory("familieoppjor")?.subtitle).toBe("Arven avgjøres her");
+  });
+});
+
+describe("SPORTS", () => {
+  it("includes the selectable sports", () => {
+    expect(SPORTS.map((sport) => sport.id)).toEqual([
+      "fotball",
+      "golf",
+      "gaming",
+      "fifa",
+      "sjakk",
+      "bordtennis",
+    ]);
+  });
+});
+
+describe("suggestFormats", () => {
+  it("suggests Swiss for chess", () => {
+    const ids = suggestFormats("sjakk").map((format) => format.id);
+    expect(ids).toContain("swiss");
+    expect(ids).toContain("ladder");
   });
 
-  it("exposes activities only for modes that have them", () => {
-    expect(getModeActivities("wwauqmd").map((a) => a.label)).toEqual([
-      "FIFA",
-      "Golf",
+  it("prioritizes category overlap for football in club", () => {
+    const suggested = suggestFormats("fotball", "klubb");
+    expect(suggested[0]?.id).toBe("group-playoffs");
+    expect(suggested.every((format) => format.highlighted)).toBe(true);
+  });
+
+  it("suggests intern formats for table tennis", () => {
+    expect(suggestFormats("bordtennis").map((format) => format.id)).toEqual([
+      "round-robin",
+      "king-of-the-hill",
+      "americano",
     ]);
-    expect(getModeActivities("girls-night")).toEqual([]);
-    expect(getModeActivity("wwauqmd", "fifa")?.formats[0].id).toBe("swiss");
-    expect(getModeActivity("wwauqmd", "padel")).toBeUndefined();
+  });
+
+  it("uses WWAUQMD's own descriptions for FIFA, starting with Swiss", () => {
+    const suggested = suggestFormats("fifa", "wwauqmd");
+    expect(suggested[0]?.id).toBe("swiss");
+    expect(suggested[1]?.description).toBe(
+      "Utslag (men alle mener de egentlig vant)",
+    );
+  });
+
+  it("keeps default descriptions outside WWAUQMD", () => {
+    expect(suggestFormats("fifa")[1]?.description).toBe("Single elimination");
   });
 });
