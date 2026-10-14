@@ -48,14 +48,15 @@ export function createSingleElimination(
 
   for (const match of matches) {
     if (match.round >= roundCount) continue;
+    const matchIndex = match.index ?? 0;
     const next = matches.find(
       (candidate) =>
         candidate.round === match.round + 1 &&
-        candidate.index === Math.floor(match.index / 2),
+        (candidate.index ?? 0) === Math.floor(matchIndex / 2),
     );
     if (!next) continue;
     match.nextMatchId = next.id;
-    match.nextSlot = match.index % 2 === 0 ? "A" : "B";
+    match.nextSlot = matchIndex % 2 === 0 ? "A" : "B";
   }
 
   const roundOne = matches.filter((match) => match.round === 1);

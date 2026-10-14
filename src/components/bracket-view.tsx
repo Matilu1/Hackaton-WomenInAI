@@ -31,7 +31,7 @@ function MatchCard({
   return (
     <div className="min-w-[200px] border border-line bg-white/70 p-3">
       <p className="mb-2 text-xs tracking-wide text-muted">
-        R{match.round} · Kamp {match.index + 1}
+        R{match.round} · Kamp {(match.index ?? 0) + 1}
       </p>
       {(["A", "B"] as const).map((slot) => {
         const playerId = slot === "A" ? match.playerAId : match.playerBId;
@@ -76,7 +76,7 @@ export function BracketView({ tournamentId }: { tournamentId: string }) {
         round,
         matches: tournament.matches
           .filter((match) => match.round === round)
-          .sort((a, b) => a.index - b.index),
+          .sort((a, b) => (a.index ?? 0) - (b.index ?? 0)),
       };
     });
   }, [tournament]);
