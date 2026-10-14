@@ -1,11 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import {
-  getEventMode,
-  getModeActivities,
-  getModeActivity,
-  isEventModeId,
-} from "@/lib/modes";
+import { getEventMode, isEventModeId } from "@/lib/modes";
+import SeededPlayerRatings from "./seeded-player-ratings";
 
 type NewTournamentPageProps = {
   searchParams: Promise<{ mode?: string; activity?: string }>;
@@ -15,6 +11,21 @@ const FORMAT_OPTIONS = [
   { id: "single-elimination", label: "Single elimination" },
   { id: "round-robin", label: "Round robin" },
   { id: "swiss", label: "Swiss" },
+] as const;
+
+const FIVE_PLAYER_OPTIONS = [
+  {
+    id: "lucky-loser",
+    label: "Lucky loser",
+    description:
+      "Spilleren med høyest rating (seed 1) går direkte til semifinalen.",
+  },
+  {
+    id: "qualifier",
+    label: "Innledende kamp",
+    description:
+      "De to lavest seedede spiller om den siste semifinalplassen. De tre høyest seedede går direkte videre.",
+  },
 ] as const;
 
 async function NewTournamentForm({
@@ -98,6 +109,36 @@ async function NewTournamentForm({
             className="w-full border border-spruce/25 bg-white/60 px-4 py-3 text-ink outline-none focus:border-apricot"
           />
         </label>
+
+        <SeededPlayerRatings />
+
+        <fieldset>
+          <legend className="mb-2 text-sm font-medium text-ink">
+            Oppsett for 5 spillere
+          </legend>
+          <div className="space-y-2">
+            {FIVE_PLAYER_OPTIONS.map((option) => (
+              <label
+                key={option.id}
+                className="flex cursor-pointer items-start gap-3 border-b border-spruce/15 py-3 has-[:checked]:text-spruce"
+              >
+                <input
+                  type="radio"
+                  name="five-player-format"
+                  value={option.id}
+                  required
+                  className="mt-1 accent-apricot"
+                />
+                <span>
+                  <span className="block font-medium">{option.label}</span>
+                  <span className="mt-1 block text-sm text-ink-soft">
+                    {option.description}
+                  </span>
+                </span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
 
         <fieldset>
           <legend className="mb-2 text-sm font-medium text-ink">
