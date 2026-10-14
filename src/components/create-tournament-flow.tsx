@@ -66,13 +66,15 @@ export function CreateTournamentFlow({
                   setSportId(sport.id);
                   setFormatId(null);
                 }}
-                className={`flex items-baseline justify-between gap-4 border-b border-line py-3.5 text-left transition-colors ${
-                  selected
-                    ? "border-accent text-ink"
-                    : "hover:border-accent/50"
+                className={`group flex cursor-pointer items-baseline justify-between gap-4 border-b py-3.5 text-left transition-colors hover:border-accent ${
+                  selected ? "border-accent text-accent" : "border-line text-ink"
                 }`}
               >
-                <span className="font-display text-xl font-semibold">
+                <span
+                  className={`font-display text-xl font-semibold transition-transform duration-200 group-hover:translate-x-1 ${
+                    selected ? "translate-x-1" : ""
+                  }`}
+                >
                   {sport.label}
                 </span>
                 {typical ? (
@@ -103,7 +105,7 @@ export function CreateTournamentFlow({
             {suggestions.map((format) => (
               <label
                 key={format.id}
-                className="flex cursor-pointer items-start gap-3 border-b border-line py-3.5"
+                className="group flex cursor-pointer items-start gap-3 border-b border-line py-3.5 transition-colors hover:border-accent has-[:checked]:border-accent"
               >
                 <input
                   type="radio"
@@ -113,7 +115,7 @@ export function CreateTournamentFlow({
                   onChange={() => setFormatId(format.id)}
                   className="mt-1 accent-[var(--accent)]"
                 />
-                <span>
+                <span className="transition-transform duration-200 group-hover:translate-x-1">
                   <span className="font-display block font-semibold text-ink">
                     {format.label}
                     {format.highlighted ? (
