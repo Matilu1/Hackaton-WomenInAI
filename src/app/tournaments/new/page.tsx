@@ -2,26 +2,11 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { CreateTournamentFlow } from "@/components/create-tournament-flow";
 import { isCategoryId } from "@/lib/categories";
-import SeededPlayerRatings from "./seeded-player-ratings";
+import TournamentPlayerSetup from "./tournament-player-setup";
 
 type NewTournamentPageProps = {
   searchParams: Promise<{ category?: string; mode?: string }>;
 };
-
-const FIVE_PLAYER_OPTIONS = [
-  {
-    id: "lucky-loser",
-    label: "Lucky loser",
-    description:
-      "Spilleren med høyest rating (seed 1) går direkte til semifinalen.",
-  },
-  {
-    id: "qualifier",
-    label: "Innledende kamp",
-    description:
-      "De to lavest seedede spiller om den siste semifinalplassen. De tre høyest seedede går direkte videre.",
-  },
-] as const;
 
 async function NewTournamentContent({
   searchParams,
@@ -35,34 +20,7 @@ async function NewTournamentContent({
   return (
     <div className="mt-8 space-y-8">
       <CreateTournamentFlow categoryId={categoryId} />
-      <SeededPlayerRatings />
-      <fieldset>
-        <legend className="mb-2 text-sm font-medium text-ink">
-          Oppsett for 5 spillere
-        </legend>
-        <div className="space-y-2">
-          {FIVE_PLAYER_OPTIONS.map((option) => (
-            <label
-              key={option.id}
-              className="flex cursor-pointer items-start gap-3 border-b border-spruce/15 py-3 has-[:checked]:text-spruce"
-            >
-              <input
-                type="radio"
-                name="five-player-format"
-                value={option.id}
-                required
-                className="mt-1 accent-apricot"
-              />
-              <span>
-                <span className="block font-medium">{option.label}</span>
-                <span className="mt-1 block text-sm text-ink-soft">
-                  {option.description}
-                </span>
-              </span>
-            </label>
-          ))}
-        </div>
-      </fieldset>
+      <TournamentPlayerSetup />
     </div>
   );
 }
