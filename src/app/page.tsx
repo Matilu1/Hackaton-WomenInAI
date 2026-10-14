@@ -55,6 +55,7 @@ export default function Home() {
                 style={{ animationDelay: `${280 + index * 70}ms` }}
               >
                 <span className="font-display text-xl font-semibold text-ink transition-transform duration-200 group-hover:translate-x-1 sm:text-2xl">
+                  {"icon" in mode && `${mode.icon} `}
                   {mode.label}
                 </span>
                 <span className="hidden text-sm text-ink-soft sm:inline">

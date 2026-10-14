@@ -1,9 +1,14 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import { getEventMode, isEventModeId } from "@/lib/modes";
+import {
+  getEventMode,
+  getModeActivities,
+  getModeActivity,
+  isEventModeId,
+} from "@/lib/modes";
 
 type NewTournamentPageProps = {
-  searchParams: Promise<{ mode?: string }>;
+  searchParams: Promise<{ mode?: string; activity?: string }>;
 };
 
 const FORMAT_OPTIONS = [
@@ -15,17 +20,61 @@ const FORMAT_OPTIONS = [
 async function NewTournamentForm({
   searchParams,
 }: {
-  searchParams: Promise<{ mode?: string }>;
+  searchParams: Promise<{ mode?: string; activity?: string }>;
 }) {
   const params = await searchParams;
   const modeId = params.mode && isEventModeId(params.mode) ? params.mode : null;
   const mode = modeId ? getEventMode(modeId) : null;
+  const activities = modeId ? getModeActivities(modeId) : [];
+  const activity =
+    modeId && params.activity
+      ? getModeActivity(modeId, params.activity)
+      : undefined;
+  const formatOptions = activity
+    ? activity.formats.map((format) => ({
+        id: format.id,
+        label:
+          FORMAT_OPTIONS.find((option) => option.id === format.id)?.label ??
+          format.id,
+        description: format.description,
+      }))
+    : FORMAT_OPTIONS;
+
+  if (modeId && activities.length > 0 && !activity) {
+    return (
+      <>
+        <p className="mt-3 text-ink-soft">
+          Stemning: <span className="font-medium text-ink">{mode?.label}</span>
+        </p>
+        <nav
+          aria-label="Velg aktivitet"
+          className="mt-8 flex flex-col gap-1 border-t border-spruce/20 pt-2"
+        >
+          {activities.map((option) => (
+            <Link
+              key={option.id}
+              href={`/tournaments/new?mode=${modeId}&activity=${option.id}`}
+              className="border-b border-spruce/15 py-3.5 font-display text-xl font-semibold text-ink transition-colors hover:border-apricot"
+            >
+              {option.label}
+            </Link>
+          ))}
+        </nav>
+      </>
+    );
+  }
 
   return (
     <>
       {mode ? (
         <p className="mt-3 text-ink-soft">
           Stemning: <span className="font-medium text-ink">{mode.label}</span>
+          {activity && (
+            <>
+              {" · "}Aktivitet:{" "}
+              <span className="font-medium text-ink">{activity.label}</span>
+            </>
+          )}
         </p>
       ) : (
         <p className="mt-3 text-ink-soft">
@@ -55,7 +104,7 @@ async function NewTournamentForm({
             Turneringsoppsett
           </legend>
           <div className="space-y-2">
-            {FORMAT_OPTIONS.map((format) => (
+            {formatOptions.map((format, index) => (
               <label
                 key={format.id}
                 className="flex cursor-pointer items-center gap-3 border-b border-spruce/15 py-3 has-[:checked]:text-spruce"
@@ -64,10 +113,15 @@ async function NewTournamentForm({
                   type="radio"
                   name="format"
                   value={format.id}
-                  defaultChecked={format.id === "swiss"}
+                  defaultChecked={activity ? index === 0 : format.id === "swiss"}
                   className="accent-apricot"
                 />
                 <span>{format.label}</span>
+                {"description" in format && (
+                  <span className="text-sm text-ink-soft">
+                    {format.description}
+                  </span>
+                )}
               </label>
             ))}
           </div>
