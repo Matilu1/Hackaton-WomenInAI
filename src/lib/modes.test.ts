@@ -4,7 +4,7 @@ import { SPORTS } from "./sports";
 import { suggestFormats } from "./suggestions";
 
 describe("CATEGORIES", () => {
-  it("includes the six front-page cases", () => {
+  it("includes the front-page cases", () => {
     expect(CATEGORIES.map((category) => category.label)).toEqual([
       "Internoppgjør",
       "Familieoppgjør",
@@ -12,6 +12,7 @@ describe("CATEGORIES", () => {
       "Hytteoppgjør",
       "Vennegjengen",
       "Klubb / skikkelig turnering",
+      "WWAUQMD",
     ]);
   });
 

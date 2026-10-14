@@ -68,6 +68,17 @@ export const CATEGORIES = [
       "swiss",
     ] as const satisfies readonly TournamentFormatId[],
   },
+  {
+    id: "wwauqmd",
+    label: "WWAUQMD",
+    subtitle: "What would an underqualified man do?",
+    typicalSportIds: ["gaming", "golf"] as const satisfies readonly SportId[],
+    recommendedFormatIds: [
+      "swiss",
+      "elimination",
+      "round-robin",
+    ] as const satisfies readonly TournamentFormatId[],
+  },
 ] as const;
 
 export type CategoryId = (typeof CATEGORIES)[number]["id"];
