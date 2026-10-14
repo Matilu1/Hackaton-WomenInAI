@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import { getEventMode, isEventModeId } from "@/lib/modes";
+import { getEventMode, isEventModeId, getModeActivities, getModeActivity } from "@/lib/modes";
 import SeededPlayerRatings from "./seeded-player-ratings";
 
 type NewTournamentPageProps = {
