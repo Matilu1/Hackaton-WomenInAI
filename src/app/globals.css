@@ -2,26 +2,107 @@
 @plugin "daisyui";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ink: #0f1c17;
+  --ink-soft: #2a4037;
+  --mist: #e3ebe6;
+  --spruce: #1f4d3b;
+  --spruce-deep: #123328;
+  --apricot: #e07a3a;
+  --background: #dfe8e2;
+  --foreground: var(--ink);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-mist: var(--mist);
+  --color-spruce: var(--spruce);
+  --color-spruce-deep: var(--spruce-deep);
+  --color-apricot: var(--apricot);
+  --font-sans: var(--font-figtree);
+  --font-display: var(--font-bricolage);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-figtree), ui-sans-serif, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-bricolage), ui-sans-serif, sans-serif;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: scale(1.02) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.08) translate3d(-1.5%, 1%, 0);
+  }
+}
+
+@keyframes mode-in {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-rise {
+  animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-drift {
+  animation: drift 22s ease-in-out infinite alternate;
+}
+
+.animate-mode {
+  animation: mode-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-scrim {
+  background: linear-gradient(
+    105deg,
+    rgba(227, 235, 230, 0.94) 0%,
+    rgba(227, 235, 230, 0.88) 38%,
+    rgba(227, 235, 230, 0.35) 62%,
+    rgba(227, 235, 230, 0) 82%
+  );
+}
+
+@media (max-width: 767px) {
+  .hero-scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(227, 235, 230, 0.95) 0%,
+      rgba(227, 235, 230, 0.9) 55%,
+      rgba(227, 235, 230, 0.55) 100%
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise,
+  .animate-drift,
+  .animate-mode {
+    animation: none;
+  }
 }
