@@ -1,7 +1,7 @@
 export const EVENT_MODES = [
   {
     id: "familie-oppgjor",
-    label: "Familie oppgjør",
+    label: "Familieoppgjør",
     blurb: "Koselig konkurranse rundt bordet",
   },
   {
@@ -11,7 +11,7 @@ export const EVENT_MODES = [
   },
   {
     id: "jobb-oppgjor",
-    label: "Jobb oppgjør",
+    label: "Jobboppgjør",
     blurb: "Lagbygging med litt ekstra gnist",
   },
   {
@@ -23,7 +23,6 @@ export const EVENT_MODES = [
     id: "wwauqmd",
     label: "WWAUQMD",
     blurb: "What would an underqualified man do?",
-    icon: "🤷‍♂️",
     activities: [
       {
         id: "fifa",

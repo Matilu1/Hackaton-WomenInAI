@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import Link from "next/link";
+import PageBackdrop from "@/app/ui/page-backdrop";
 
 type TournamentPageProps = {
   params: Promise<{ id: string }>;
@@ -22,8 +23,9 @@ async function TournamentDetail({
 
 export default function TournamentPage({ params }: TournamentPageProps) {
   return (
-    <div className="min-h-svh bg-mist">
-      <main className="mx-auto w-full max-w-2xl px-6 py-12 sm:px-10">
+    <div className="relative min-h-svh">
+      <PageBackdrop />
+      <main className="relative z-10 mx-auto w-full max-w-2xl px-6 py-12 sm:px-10">
         <Link
           href="/"
           className="text-sm font-medium text-spruce underline-offset-4 hover:underline"

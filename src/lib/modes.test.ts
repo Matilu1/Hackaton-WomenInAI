@@ -10,9 +10,9 @@ import {
 describe("EVENT_MODES", () => {
   it("includes the front-page modes", () => {
     expect(EVENT_MODES.map((mode) => mode.label)).toEqual([
-      "Familie oppgjør",
+      "Familieoppgjør",
       "Girls night",
-      "Jobb oppgjør",
+      "Jobboppgjør",
       "Lønningspils",
       "WWAUQMD",
     ]);

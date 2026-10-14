@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Figtree } from "next/font/google";
 import "./globals.css";
+import { DramaticToggle, ModeToggle } from "./ui/mode-toggle";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -24,7 +25,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="nb"
       className={`${bricolage.variable} ${figtree.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <div className="fixed right-4 top-4 z-50 flex flex-col items-end gap-2 sm:right-10 sm:top-6 lg:right-16">
+          <ModeToggle />
+          <DramaticToggle />
+        </div>
+      </body>
     </html>
   );
 }

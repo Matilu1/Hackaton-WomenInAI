@@ -2,13 +2,15 @@
 @plugin "daisyui";
 
 :root {
-  --ink: #0f1c17;
-  --ink-soft: #2a4037;
-  --mist: #e3ebe6;
-  --spruce: #1f4d3b;
-  --spruce-deep: #123328;
+  --ink: var(--rose);
+  --ink-soft: var(--rose-soft);
+  --mist: #fbe9f0;
+  --spruce: #9d1f52;
+  --spruce-deep: #6e1239;
   --apricot: #e07a3a;
-  --background: #dfe8e2;
+  --rose: #9d1f52;
+  --rose-soft: #a3365f;
+  --background: #f8dfe9;
   --foreground: var(--ink);
 }
 
@@ -21,6 +23,8 @@
   --color-spruce: var(--spruce);
   --color-spruce-deep: var(--spruce-deep);
   --color-apricot: var(--apricot);
+  --color-rose: var(--rose);
+  --color-rose-soft: var(--rose-soft);
   --font-sans: var(--font-figtree);
   --font-display: var(--font-bricolage);
 }
@@ -81,10 +85,10 @@ body {
 .hero-scrim {
   background: linear-gradient(
     105deg,
-    rgba(227, 235, 230, 0.94) 0%,
-    rgba(227, 235, 230, 0.88) 38%,
-    rgba(227, 235, 230, 0.35) 62%,
-    rgba(227, 235, 230, 0) 82%
+    rgba(251, 233, 240, 0.94) 0%,
+    rgba(251, 233, 240, 0.88) 38%,
+    rgba(251, 233, 240, 0.35) 62%,
+    rgba(251, 233, 240, 0) 82%
   );
 }
 
@@ -92,11 +96,62 @@ body {
   .hero-scrim {
     background: linear-gradient(
       180deg,
-      rgba(227, 235, 230, 0.95) 0%,
-      rgba(227, 235, 230, 0.9) 55%,
-      rgba(227, 235, 230, 0.55) 100%
+      rgba(251, 233, 240, 0.95) 0%,
+      rgba(251, 233, 240, 0.9) 55%,
+      rgba(251, 233, 240, 0.55) 100%
     );
   }
+}
+
+.page-scrim {
+  background: rgba(251, 233, 240, 0.88);
+}
+
+/* Mørk modus: settes av knappen øverst til høyre (data-dark på <html>). */
+:root[data-dark="on"] {
+  --mist: #2a0f1d;
+  --spruce: #f7a8c6;
+  --background: #2a0f1d;
+  --rose: #f7a8c6;
+  --rose-soft: #f3c6d7;
+}
+
+:root[data-dark="on"] .hero-scrim {
+  background: linear-gradient(
+    105deg,
+    rgba(38, 10, 24, 0.92) 0%,
+    rgba(38, 10, 24, 0.85) 38%,
+    rgba(38, 10, 24, 0.4) 62%,
+    rgba(38, 10, 24, 0.1) 82%
+  );
+}
+
+@media (max-width: 767px) {
+  :root[data-dark="on"] .hero-scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(38, 10, 24, 0.93) 0%,
+      rgba(38, 10, 24, 0.88) 55%,
+      rgba(38, 10, 24, 0.6) 100%
+    );
+  }
+}
+
+:root[data-dark="on"] .page-scrim {
+  background: rgba(42, 15, 29, 0.9);
+}
+
+:root[data-dark="on"] input[type="text"] {
+  background-color: rgb(255 255 255 / 0.08);
+}
+
+:root[data-dark="on"] .mode-toggle-surface {
+  background: rgba(38, 10, 24, 0.5);
+}
+
+/* Dramatic mode: alle bokstaver i caps lock. */
+:root[data-dramatic="on"] body {
+  text-transform: uppercase;
 }
 
 @media (prefers-reduced-motion: reduce) {
