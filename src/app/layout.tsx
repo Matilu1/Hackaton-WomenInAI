@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Manrope, Syne } from "next/font/google";
 import { DramaticModeProvider } from "@/components/dramatic-mode";
 import "./globals.css";
+import { DramaticToggle, ModeToggle } from "./ui/mode-toggle";
 
 const syne = Syne({
   variable: "--font-syne",
@@ -27,7 +28,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       data-dramatic="off"
     >
       <body className="min-h-full flex flex-col">
-        <DramaticModeProvider>{children}</DramaticModeProvider>
+        <DramaticModeProvider>
+          {children}
+          <div className="fixed right-4 top-4 z-50 flex flex-col items-end gap-2 sm:right-10 sm:top-6 lg:right-16">
+            <ModeToggle />
+            <DramaticToggle />
+          </div>
+        </DramaticModeProvider>
       </body>
     </html>
   );

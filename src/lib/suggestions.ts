@@ -23,6 +23,11 @@ export function suggestFormats(
     category?.recommendedFormatIds ?? [],
   );
 
+  const descriptions: Partial<Record<TournamentFormatId, string>> =
+    category && "formatDescriptions" in category
+      ? category.formatDescriptions
+      : {};
+
   const prioritized = [
     ...sportFormats.filter((id) => categorySet.has(id)),
     ...sportFormats.filter((id) => !categorySet.has(id)),
@@ -30,6 +35,7 @@ export function suggestFormats(
 
   return getTournamentFormats(prioritized).map((format) => ({
     ...format,
+    description: descriptions[format.id] ?? format.description,
     highlighted: categorySet.has(format.id),
   }));
 }

@@ -2,13 +2,14 @@
 @plugin "daisyui";
 
 :root {
-  --ink: #1a1a1a;
-  --muted: #5e5a54;
-  --stone: #f4f3f0;
-  --stone-deep: #e8e6e1;
-  --accent: #3d4f45;
-  --accent-soft: #6b7c72;
-  --line: rgba(26, 26, 26, 0.12);
+  --ink: #9d1f52;
+  --muted: #a3365f;
+  --stone: #fbe9f0;
+  --stone-deep: #f6d5e2;
+  --accent: #b8326a;
+  --accent-soft: #d9799f;
+  --line: rgba(157, 31, 82, 0.18);
+  --scrim: rgba(251, 233, 240, 0.8);
   --background: var(--stone);
   --foreground: var(--ink);
 }
@@ -23,6 +24,10 @@
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
   --color-line: var(--line);
+  /* Eldre klassenavn som fortsatt brukes på noen sider. */
+  --color-ink-soft: var(--muted);
+  --color-spruce: var(--ink);
+  --color-apricot: var(--accent);
   --font-sans: var(--font-manrope);
   --font-display: var(--font-syne);
 }
@@ -50,7 +55,28 @@ html[data-dramatic="on"] body * {
 .page-shell {
   min-height: 100svh;
   background:
-    linear-gradient(180deg, #f7f6f3 0%, #f0eee9 55%, #ebe8e2 100%);
+    linear-gradient(var(--scrim), var(--scrim)),
+    url("/ny-bakgrunn.jpg") center / cover no-repeat;
+}
+
+/* Mørk modus: settes av knappen øverst til høyre (data-dark på <html>). */
+:root[data-dark="on"] {
+  --ink: #f7a8c6;
+  --muted: #f3c6d7;
+  --stone: #2a0f1d;
+  --stone-deep: #3a1628;
+  --accent: #ff8fbf;
+  --accent-soft: #c76b93;
+  --line: rgba(247, 168, 198, 0.22);
+  --scrim: rgba(42, 15, 29, 0.88);
+}
+
+:root[data-dark="on"] input[type="text"] {
+  background-color: rgb(255 255 255 / 0.08);
+}
+
+:root[data-dark="on"] .mode-toggle-surface {
+  background: rgba(42, 15, 29, 0.5);
 }
 
 .page-shell::before {
@@ -63,8 +89,8 @@ html[data-dramatic="on"] body * {
     to right,
     transparent 0,
     transparent calc(50% - 0.5px),
-    rgba(26, 26, 26, 0.04) calc(50% - 0.5px),
-    rgba(26, 26, 26, 0.04) calc(50% + 0.5px),
+    rgba(157, 31, 82, 0.05) calc(50% - 0.5px),
+    rgba(157, 31, 82, 0.05) calc(50% + 0.5px),
     transparent calc(50% + 0.5px),
     transparent 100%
   );

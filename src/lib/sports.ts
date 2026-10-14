@@ -40,6 +40,16 @@ export const SPORTS = [
     ] as const satisfies readonly TournamentFormatId[],
   },
   {
+    id: "fifa",
+    label: "FIFA",
+    // WWAUQMD
+    suggestedFormatIds: [
+      "swiss",
+      "elimination",
+      "round-robin",
+    ] as const satisfies readonly TournamentFormatId[],
+  },
+  {
     id: "sjakk",
     label: "Sjakk",
     // Vennegjengen + Klubb

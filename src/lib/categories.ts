@@ -72,12 +72,20 @@ export const CATEGORIES = [
     id: "wwauqmd",
     label: "WWAUQMD",
     subtitle: "What would an underqualified man do?",
-    typicalSportIds: ["gaming", "golf"] as const satisfies readonly SportId[],
+    typicalSportIds: ["fifa", "golf"] as const satisfies readonly SportId[],
     recommendedFormatIds: [
       "swiss",
       "elimination",
       "round-robin",
     ] as const satisfies readonly TournamentFormatId[],
+    /** Valgfritt: egne formatbeskrivelser for dette caset. */
+    formatDescriptions: {
+      swiss: "Swiss stage (ingen skjønner tabellen, alle er eksperter)",
+      elimination: "Utslag (men alle mener de egentlig vant)",
+      "round-robin": "Alle mot alle (unnskyldningene roterer også)",
+      "round-robin-handicap": "Alle mot alle med handicap (handicap er bare et tall)",
+      "elimination-consolation": "Utslag med trøstefinale (alle trenger trøst)",
+    } satisfies Partial<Record<TournamentFormatId, string>>,
   },
 ] as const;
 

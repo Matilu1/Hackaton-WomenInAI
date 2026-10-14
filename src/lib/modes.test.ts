@@ -24,11 +24,12 @@ describe("CATEGORIES", () => {
 });
 
 describe("SPORTS", () => {
-  it("includes the five selectable sports", () => {
+  it("includes the selectable sports", () => {
     expect(SPORTS.map((sport) => sport.id)).toEqual([
       "fotball",
       "golf",
       "gaming",
+      "fifa",
       "sjakk",
       "bordtennis",
     ]);
@@ -54,5 +55,17 @@ describe("suggestFormats", () => {
       "king-of-the-hill",
       "americano",
     ]);
+  });
+
+  it("uses WWAUQMD's own descriptions for FIFA, starting with Swiss", () => {
+    const suggested = suggestFormats("fifa", "wwauqmd");
+    expect(suggested[0]?.id).toBe("swiss");
+    expect(suggested[1]?.description).toBe(
+      "Utslag (men alle mener de egentlig vant)",
+    );
+  });
+
+  it("keeps default descriptions outside WWAUQMD", () => {
+    expect(suggestFormats("fifa")[1]?.description).toBe("Single elimination");
   });
 });
