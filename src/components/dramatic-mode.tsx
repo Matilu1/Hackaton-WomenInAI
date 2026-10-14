@@ -44,7 +44,9 @@ function getServerSnapshot() {
 }
 
 function applyDramaticAttribute(enabled: boolean) {
-  document.documentElement.dataset.dramatic = enabled ? "on" : "off";
+  const root = document.documentElement;
+  root.dataset.dramatic = enabled ? "on" : "off";
+  root.classList.toggle("dramatic-mode", enabled);
 }
 
 export function DramaticModeProvider({ children }: { children: ReactNode }) {

@@ -37,6 +37,9 @@ body {
   font-family: var(--font-syne), ui-sans-serif, sans-serif;
 }
 
+html.dramatic-mode,
+html.dramatic-mode body,
+html.dramatic-mode body *,
 html[data-dramatic="on"],
 html[data-dramatic="on"] body,
 html[data-dramatic="on"] body * {
