@@ -11,14 +11,21 @@ export type Player = {
   name: string;
 };
 
+export type MatchSlot = "A" | "B";
+
 export type Match = {
   id: string;
   round: number;
+  /** Position within the round (bracket layouts). */
+  index?: number;
   playerAId: string | null;
   playerBId: string | null;
   winnerId: string | null;
   scoreA: number | null;
   scoreB: number | null;
+  /** Next match in a single-elim bracket, if any. */
+  nextMatchId?: string | null;
+  nextSlot?: MatchSlot | null;
 };
 
 export type Tournament = {
